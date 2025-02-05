@@ -20,4 +20,6 @@ public class Routine {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 알람을 설정한 사용자
+
+    //알림
 }
