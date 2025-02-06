@@ -1,11 +1,13 @@
 package com.example.youtube_routine.Entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import java.time.LocalTime;
 
-@Entity
+
 @Data
+@Builder
 public class Routine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

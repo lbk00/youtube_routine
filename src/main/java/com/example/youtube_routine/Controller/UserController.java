@@ -17,13 +17,14 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@RequestBody String deviceId) {
         // 디바이스 번호 받고 사용자 객체 생성
-//        User user = userService.register(deviceId);
+//        User user = userService.registerUser(deviceId);
         return "test";
     }
 
     // 2. 사용자가 새로운 루틴 생성 post
 
     // 3. 사용자 별 루틴 조회 get
+    // id 또는 deviceId로 조회
 
     // 4. 사용자가 기존 루틴 수정 put
 
