@@ -17,6 +17,9 @@ public class Routine {
     @Column(nullable = false)
     private String youtubeLink; // 유튜브 링크
 
+    @Column(nullable = false)
+    private String content; // 푸시 알람으로 보여줄 텍스트 설정 , 간단한 설명 ex) 저녁 운동 , 아침 스트레칭
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 알람을 설정한 사용자

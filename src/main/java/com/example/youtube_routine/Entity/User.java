@@ -16,6 +16,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String deviceId; // 디바이스 고유 식별자 -> 따로 id/pw X
 
+    //하나의 사용자는 여러개의 루틴 가질수 있음
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Routine> routines; // 사용자별 루틴 설정 리스트
 
