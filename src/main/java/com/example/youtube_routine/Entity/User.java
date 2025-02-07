@@ -6,7 +6,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
+@Entity
+@Table(name = "users")
 @Builder
 public class User {
 
@@ -21,4 +22,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Routine> routines; // 사용자별 루틴 설정 리스트
 
+    public User() {
+
+    }
 }

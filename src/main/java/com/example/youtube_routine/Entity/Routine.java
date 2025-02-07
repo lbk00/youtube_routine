@@ -6,7 +6,8 @@ import lombok.Data;
 import java.time.LocalTime;
 
 
-@Data
+@Entity
+@Table(name = "routines")
 @Builder
 public class Routine {
     @Id
@@ -28,6 +29,10 @@ public class Routine {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 알람을 설정한 사용자
+
+    public Routine() {
+
+    }
 
     //알림
 }
