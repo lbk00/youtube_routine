@@ -14,6 +14,9 @@ public class Routine {
     private Long id;
 
     @Column(nullable = false)
+    private Day day; // 요일
+
+    @Column(nullable = false)
     private LocalTime routineTime; // 알람 시간
 
     @Column(nullable = false)
