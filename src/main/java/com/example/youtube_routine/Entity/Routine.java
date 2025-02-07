@@ -11,7 +11,7 @@ import java.time.LocalTime;
 public class Routine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // 루틴 별 고유 id
+    private Long id; // 루틴 별 고유 id
 
     @Column(nullable = false)
     private Day day; // 요일
