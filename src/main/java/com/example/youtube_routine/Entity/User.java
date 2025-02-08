@@ -1,14 +1,15 @@
 package com.example.youtube_routine.Entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -22,7 +23,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Routine> routines; // 사용자별 루틴 설정 리스트
 
-    public User() {
-
+    @Builder
+    public User(String deviceId, List<Routine> routines) {
+        this.deviceId = deviceId;
+        this.routines = routines;
     }
 }

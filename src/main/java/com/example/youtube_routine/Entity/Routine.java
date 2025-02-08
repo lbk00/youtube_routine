@@ -1,14 +1,16 @@
 package com.example.youtube_routine.Entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
 import java.time.LocalTime;
 
 
 @Entity
 @Table(name = "routines")
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
 public class Routine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +32,14 @@ public class Routine {
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 알람을 설정한 사용자
 
-    public Routine() {
-
+    @Builder
+    public Routine(Long id, Day day, LocalTime routineTime, String youtubeLink, String content, User user) {
+        this.id = id;
+        this.day = day;
+        this.routineTime = routineTime;
+        this.youtubeLink = youtubeLink;
+        this.content = content;
+        this.user = user;
     }
 
-    //알림
 }
