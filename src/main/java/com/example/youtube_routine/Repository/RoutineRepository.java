@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface RoutineRepository extends JpaRepository<Routine, Long> {
     List<Routine> findByUser(User user);
+    // 특정 사용자에 대한 모든 루틴 삭제
+    void deleteAllByUser(User user);
+
 }
