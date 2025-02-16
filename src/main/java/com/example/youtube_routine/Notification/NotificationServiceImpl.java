@@ -1,8 +1,8 @@
-package com.example.youtube_routine.Service;
+package com.example.youtube_routine.Notification;
 
 
-import com.example.youtube_routine.Entity.Routine;
-import com.example.youtube_routine.Repository.RoutineRepository;
+import com.example.youtube_routine.Routine.Routine;
+import com.example.youtube_routine.Routine.RoutineRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

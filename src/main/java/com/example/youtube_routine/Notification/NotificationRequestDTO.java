@@ -1,4 +1,4 @@
-package com.example.youtube_routine.Entity;
+package com.example.youtube_routine.Notification;
 
 import lombok.Data;
 

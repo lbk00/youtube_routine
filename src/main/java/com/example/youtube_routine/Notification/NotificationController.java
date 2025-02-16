@@ -1,6 +1,5 @@
-package com.example.youtube_routine.Controller;
+package com.example.youtube_routine.Notification;
 
-import com.example.youtube_routine.Service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
