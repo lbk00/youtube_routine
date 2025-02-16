@@ -1,7 +1,6 @@
-package com.example.youtube_routine.Repository;
+package com.example.youtube_routine.Routine;
 
-import com.example.youtube_routine.Entity.Routine;
-import com.example.youtube_routine.Entity.User;
+import com.example.youtube_routine.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package com.example.youtube_routine.Entity;
+package com.example.youtube_routine.Routine;
 
 // 요일
 public enum Day {
