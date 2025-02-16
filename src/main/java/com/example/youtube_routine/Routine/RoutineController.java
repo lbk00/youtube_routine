@@ -1,9 +1,5 @@
-package com.example.youtube_routine.Controller;
+package com.example.youtube_routine.Routine;
 
-import com.example.youtube_routine.Entity.Routine;
-import com.example.youtube_routine.Entity.RoutineRequestDTO;
-import com.example.youtube_routine.Service.RoutineService;
-import com.example.youtube_routine.Service.RoutineServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +13,14 @@ public class RoutineController {
 
     private final RoutineService routineService;
 
-    //  새로운 루틴 생성 api , 사용자로부터 요일 , 메시지 , 시간 , 링크 입력 -> 루틴 반환
-    @PostMapping("/create")
-    public ResponseEntity<Routine> createRoutine(@RequestBody RoutineRequestDTO requestDTO) {
-        Routine routine = routineService.createRoutine(requestDTO);
+    //  새로운 루틴 생성 api , 사용자로부터 요일 , 메시지 , 시간 , 링크 , 반복 여부 입력 -> 루틴 반환
+    @PostMapping("/create/{deviceId}") // url로 deviceId 전달 , 다른 파라미터는 DTO로 전달
+    public ResponseEntity<Routine> createRoutine(@PathVariable String deviceId, @RequestBody RoutineRequestDTO requestDTO) {
+        Routine routine = routineService.createRoutine(deviceId, requestDTO);
         return ResponseEntity.ok(routine);
     }
 
-    // 사용자 별 루틴 조회 api // id 또는 deviceId로 조회
+    // 사용자 별 루틴 조회 api // deviceId로 조회
     @GetMapping("/user/{deviceId}")
     public ResponseEntity<List<Routine>> getUserRoutines(@PathVariable String deviceId) {
         List<Routine> routines = routineService.getUserRoutines(deviceId);
