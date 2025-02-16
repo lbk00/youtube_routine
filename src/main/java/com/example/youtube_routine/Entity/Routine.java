@@ -32,14 +32,18 @@ public class Routine {
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 알람을 설정한 사용자
 
+    @Column(nullable = false)
+    private boolean repeat; // 해당 루틴을 반복 수행할지 확인 , true = 반복 / false = 반복X
+
     @Builder
-    public Routine(Long id, Day day, LocalTime routineTime, String youtubeLink, String content, User user) {
+    public Routine(Long id, Day day, LocalTime routineTime, String youtubeLink, String content, User user , boolean repeat) {
         this.id = id;
         this.day = day;
         this.routineTime = routineTime;
         this.youtubeLink = youtubeLink;
         this.content = content;
         this.user = user;
+        this.repeat = repeat;
     }
 
 }
