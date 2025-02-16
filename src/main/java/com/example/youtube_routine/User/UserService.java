@@ -1,6 +1,4 @@
-package com.example.youtube_routine.Service;
-
-import com.example.youtube_routine.Entity.User;
+package com.example.youtube_routine.User;
 
 public interface UserService {
     // 디바이스 번호를 가져오는 메서드

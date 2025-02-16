@@ -1,8 +1,6 @@
-package com.example.youtube_routine.Service;
+package com.example.youtube_routine.User;
 
-import com.example.youtube_routine.Entity.User;
 import com.example.youtube_routine.Repository.RoutineRepository;
-import com.example.youtube_routine.Repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,7 @@ public class UserServiceImpl implements UserService {
     // 기기번호는 클라이언트에서 가져온 후 백엔드에 전달
     @Override
     public String getDeviceId() {
+        // 안드로이드에서 기기번호 가져오는 코드
         return "";
     }
 

@@ -1,11 +1,7 @@
-package com.example.youtube_routine.Controller;
+package com.example.youtube_routine.User;
 
-import com.example.youtube_routine.Entity.User;
-import com.example.youtube_routine.Service.UserService;
-import com.example.youtube_routine.Service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
