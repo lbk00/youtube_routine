@@ -1,6 +1,6 @@
 package com.example.youtube_routine.User;
 
-import com.example.youtube_routine.Entity.Routine;
+import com.example.youtube_routine.Routine.Routine;
 import jakarta.persistence.*;
 import lombok.*;
 
