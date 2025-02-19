@@ -12,5 +12,7 @@ public interface RoutineRepository extends JpaRepository<Routine, Long> {
     List<Routine> findByUserDeviceId(@Param("deviceId") String deviceId); // 루틴에 deviceId 필드 추가 없이 조회
     // 특정 사용자에 대한 모든 루틴 삭제
     void deleteAllByUser(User user);
+    // 사용자별 루틴 개수 조회
+    long countByUser(User user);
 
 }
