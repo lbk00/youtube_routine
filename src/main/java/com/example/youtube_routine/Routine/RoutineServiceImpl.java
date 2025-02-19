@@ -22,6 +22,11 @@ public class RoutineServiceImpl implements RoutineService {
         User user = userRepository.findByDeviceId(deviceId) // ⬅ deviceId로 루틴을 생성한 사용자 조회
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
+        // 사용자별 루틴 최대 10개로 제한
+        if (routineRepository.countByUser(user) >= 10) {
+            throw new IllegalStateException("Each user can have a maximum of 10 routines.");
+        }
+
         Routine routine = Routine.builder()
                 .day(requestDTO.getDay())
                 .routineTime(requestDTO.getRoutineTime())
@@ -57,6 +62,8 @@ public class RoutineServiceImpl implements RoutineService {
 
     @Override
     public void deleteRoutine(Long routineId) {
+        Routine routine = routineRepository.findById(routineId)
+                .orElseThrow(() -> new EntityNotFoundException("Routine not found"));
         routineRepository.deleteById(routineId);
     }
 }

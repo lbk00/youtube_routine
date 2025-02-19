@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Routine {
+public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도록 조건 추가해야함
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 루틴 별 고유 id
