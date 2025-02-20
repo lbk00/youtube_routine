@@ -15,10 +15,21 @@ public class RoutineServiceImpl implements RoutineService {
     private final RoutineRepository routineRepository;
     private final UserRepository userRepository;
 
+    // 직렬화에서 무한 중첩을 벗어나기위해 엔티티 -> DTO 변환 메서드
+    public RoutineResponseDTO toRoutineResponseDTO(Routine routine) {
+        return new RoutineResponseDTO(
+                routine.getDay(),
+                routine.getRoutineTime(),
+                routine.getYoutubeLink(),
+                routine.getContent(),
+                routine.isRepeatFlag()
+        );
+    }
+
 
     // 루틴 생성
     @Override
-    public Routine createRoutine(String deviceId, RoutineRequestDTO requestDTO) {
+    public RoutineResponseDTO createRoutine(String deviceId, RoutineRequestDTO requestDTO) {
         User user = userRepository.findByDeviceId(deviceId) // ⬅ deviceId로 루틴을 생성한 사용자 조회
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
@@ -36,7 +47,8 @@ public class RoutineServiceImpl implements RoutineService {
                 .repeatFlag(requestDTO.isRepeatFlag()) // boolean 타입은 get X -> is
                 .build();
 
-        return routineRepository.save(routine);
+        routineRepository.save(routine);
+        return toRoutineResponseDTO(routine);
     }
 
     // 루틴 조회
