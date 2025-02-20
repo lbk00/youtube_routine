@@ -11,6 +11,6 @@ public class RoutineRequestDTO {
     private LocalTime routineTime;
     private String youtubeLink;
     private String content; // 메시지
-    private boolean repeat;
+    private boolean repeatFlag;
 }
 

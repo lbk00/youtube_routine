@@ -34,17 +34,17 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
     private User user; // 알람을 설정한 사용자
 
     @Column(nullable = false)
-    private boolean repeat; // 해당 루틴을 반복 수행할지 확인 , true = 반복 / false = 반복X
+    private boolean repeatFlag; // 해당 루틴을 반복 수행할지 확인 , true = 반복 / false = 반복X
 
     @Builder
-    public Routine(Long id, Day day, LocalTime routineTime, String youtubeLink, String content, User user , boolean repeat) {
+    public Routine(Long id, Day day, LocalTime routineTime, String youtubeLink, String content, User user , boolean repeatFlag) {
         this.id = id;
         this.day = day;
         this.routineTime = routineTime;
         this.youtubeLink = youtubeLink;
         this.content = content;
         this.user = user;
-        this.repeat = repeat;
+        this.repeatFlag = repeatFlag;
     }
 
 }

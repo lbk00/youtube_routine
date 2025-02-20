@@ -33,7 +33,7 @@ public class RoutineServiceImpl implements RoutineService {
                 .youtubeLink(requestDTO.getYoutubeLink())
                 .content(requestDTO.getContent())
                 .user(user)
-                .repeat(requestDTO.isRepeat()) // boolean 타입은 get X -> is
+                .repeatFlag(requestDTO.isRepeatFlag()) // boolean 타입은 get X -> is
                 .build();
 
         return routineRepository.save(routine);
@@ -55,7 +55,7 @@ public class RoutineServiceImpl implements RoutineService {
         routine.setRoutineTime(requestDTO.getRoutineTime());
         routine.setYoutubeLink(requestDTO.getYoutubeLink());
         routine.setContent(requestDTO.getContent());
-        routine.setRepeat(requestDTO.isRepeat());
+        routine.setRepeatFlag(requestDTO.isRepeatFlag());
 
         return routineRepository.save(routine);
     }
