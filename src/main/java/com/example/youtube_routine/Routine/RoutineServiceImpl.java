@@ -3,6 +3,7 @@ package com.example.youtube_routine.Routine;
 import com.example.youtube_routine.User.User;
 import com.example.youtube_routine.User.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +19,16 @@ public class RoutineServiceImpl implements RoutineService {
 
     // 직렬화에서 무한 중첩을 벗어나기위해 엔티티 -> DTO 변환 메서드
     public RoutineResponseDTO toRoutineResponseDTO(Routine routine) {
-        return new RoutineResponseDTO(
-                routine.getDay(),
-                routine.getRoutineTime(),
-                routine.getYoutubeLink(),
-                routine.getContent(),
-                routine.isRepeatFlag()
-        );
+        return new RoutineResponseDTO(routine);
     }
 
 
     // 루틴 생성
     @Override
+    @Transactional
     public RoutineResponseDTO createRoutine(String deviceId, RoutineRequestDTO requestDTO) {
-        User user = userRepository.findByDeviceId(deviceId) // ⬅ deviceId로 루틴을 생성한 사용자 조회
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        User user = userRepository.findByDeviceId(deviceId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with deviceId: " + deviceId));
 
         // 사용자별 루틴 최대 10개로 제한
         if (routineRepository.countByUser(user) >= 10) {
@@ -44,34 +40,33 @@ public class RoutineServiceImpl implements RoutineService {
                 .routineTime(requestDTO.getRoutineTime())
                 .youtubeLink(requestDTO.getYoutubeLink())
                 .content(requestDTO.getContent())
+                .repeatFlag(requestDTO.isRepeatFlag())
                 .user(user)
-                .repeatFlag(requestDTO.isRepeatFlag()) // boolean 타입은 get X -> is
                 .build();
 
-        routineRepository.save(routine);
+        routine = routineRepository.save(routine);
         return toRoutineResponseDTO(routine);
     }
 
     // 루틴 조회
     @Override
+    @Transactional
     public List<RoutineResponseDTO> getUserRoutines(String deviceId) {
+        User user = userRepository.findByDeviceId(deviceId)
+                .orElseThrow(() -> new EntityNotFoundException("User with deviceId '" + deviceId + "' not found"));
+
         List<Routine> routines = routineRepository.findByUserDeviceId(deviceId);
         return routines.stream()
-                .map(routine -> new RoutineResponseDTO(
-                        routine.getDay(),
-                        routine.getRoutineTime(),
-                        routine.getYoutubeLink(),
-                        routine.getContent(),
-                        routine.isRepeatFlag()
-                ))
+                .map(RoutineResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
     // 루틴 수정
     @Override
+    @Transactional
     public RoutineResponseDTO updateRoutine(Long routineId, RoutineRequestDTO requestDTO) {
         Routine routine = routineRepository.findById(routineId)
-                .orElseThrow(() -> new EntityNotFoundException("Routine not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Routine not found with ID: " + routineId));
 
         routine.setDay(requestDTO.getDay());
         routine.setRoutineTime(requestDTO.getRoutineTime());
@@ -79,16 +74,15 @@ public class RoutineServiceImpl implements RoutineService {
         routine.setContent(requestDTO.getContent());
         routine.setRepeatFlag(requestDTO.isRepeatFlag());
 
-        routineRepository.save(routine);
-
         return toRoutineResponseDTO(routine);
     }
 
     @Override
+    @Transactional
     public void deleteRoutine(Long routineId) {
-        if (!routineRepository.existsById(routineId)) {
-            throw new EntityNotFoundException("Routine not found");
-        }
-        routineRepository.deleteById(routineId);
+        Routine routine = routineRepository.findById(routineId)
+                .orElseThrow(() -> new EntityNotFoundException("Routine not found with ID: " + routineId));
+
+        routineRepository.delete(routine);
     }
 }

@@ -13,12 +13,12 @@ public class RoutineResponseDTO {
     private String content; // 메시지
     private boolean repeatFlag;
 
-    public RoutineResponseDTO(Day day, LocalTime routineTime, String youtubeLink, String content, boolean repeatFlag) {
-        this.day = day;
-        this.routineTime = routineTime;
-        this.youtubeLink = youtubeLink;
-        this.content = content;
-        this.repeatFlag = repeatFlag;
+    public RoutineResponseDTO(Routine routine) {
+        this.day = routine.getDay();
+        this.routineTime = routine.getRoutineTime();
+        this.youtubeLink = routine.getYoutubeLink();
+        this.content = routine.getContent();
+        this.repeatFlag = routine.isRepeatFlag();
     }
 }
 
