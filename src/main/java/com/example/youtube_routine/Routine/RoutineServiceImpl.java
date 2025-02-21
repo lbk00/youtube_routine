@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,13 +54,22 @@ public class RoutineServiceImpl implements RoutineService {
 
     // 루틴 조회
     @Override
-    public List<Routine> getUserRoutines(String deviceId) {
-        return routineRepository.findByUserDeviceId(deviceId);
+    public List<RoutineResponseDTO> getUserRoutines(String deviceId) {
+        List<Routine> routines = routineRepository.findByUserDeviceId(deviceId);
+        return routines.stream()
+                .map(routine -> new RoutineResponseDTO(
+                        routine.getDay(),
+                        routine.getRoutineTime(),
+                        routine.getYoutubeLink(),
+                        routine.getContent(),
+                        routine.isRepeatFlag()
+                ))
+                .collect(Collectors.toList());
     }
 
     // 루틴 수정
     @Override
-    public Routine updateRoutine(Long routineId, RoutineRequestDTO requestDTO) {
+    public RoutineResponseDTO updateRoutine(Long routineId, RoutineRequestDTO requestDTO) {
         Routine routine = routineRepository.findById(routineId)
                 .orElseThrow(() -> new EntityNotFoundException("Routine not found"));
 
@@ -69,13 +79,16 @@ public class RoutineServiceImpl implements RoutineService {
         routine.setContent(requestDTO.getContent());
         routine.setRepeatFlag(requestDTO.isRepeatFlag());
 
-        return routineRepository.save(routine);
+        routineRepository.save(routine);
+
+        return toRoutineResponseDTO(routine);
     }
 
     @Override
     public void deleteRoutine(Long routineId) {
-        Routine routine = routineRepository.findById(routineId)
-                .orElseThrow(() -> new EntityNotFoundException("Routine not found"));
+        if (!routineRepository.existsById(routineId)) {
+            throw new EntityNotFoundException("Routine not found");
+        }
         routineRepository.deleteById(routineId);
     }
 }

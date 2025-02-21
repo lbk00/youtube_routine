@@ -22,15 +22,15 @@ public class RoutineController {
 
     // 사용자 별 루틴 조회 api // deviceId로 조회
     @GetMapping("/user/{deviceId}")
-    public ResponseEntity<List<Routine>> getUserRoutines(@PathVariable String deviceId) {
-        List<Routine> routines = routineService.getUserRoutines(deviceId);
+    public ResponseEntity<List<RoutineResponseDTO>> getUserRoutines(@PathVariable String deviceId) {
+        List<RoutineResponseDTO> routines = routineService.getUserRoutines(deviceId);
         return ResponseEntity.ok(routines);
     }
 
     // 기존 루틴 수정 api
     @PutMapping("/{routineId}")
-    public ResponseEntity<Routine> updateRoutine(@PathVariable Long routineId, @RequestBody RoutineRequestDTO requestDTO) {
-        Routine updatedRoutine = routineService.updateRoutine(routineId, requestDTO);
+    public ResponseEntity<RoutineResponseDTO> updateRoutine(@PathVariable Long routineId, @RequestBody RoutineRequestDTO requestDTO) {
+        RoutineResponseDTO updatedRoutine = routineService.updateRoutine(routineId, requestDTO);
         return ResponseEntity.ok(updatedRoutine);
     }
 
