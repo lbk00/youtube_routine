@@ -16,19 +16,19 @@ public class UserController {
     // api
     // 1. 앱을 처음 실행했을때, 고유 디바이스번호로 사용자 객체 생성 post
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<User> register(@RequestBody String deviceId) {
+    public ResponseEntity<UserResponseDTO> register(@RequestBody UserRequestDTO request) {
 //        String findDeviceId = userService.findDeviceId();
         // 사용자별로 디바이스 id 찾아서 반환
         // 그 후, deviceId로 사용자 등록
-        User user = userService.registerUser(deviceId);
-        return ResponseEntity.ok(user);
+        UserResponseDTO userDTO = userService.registerUser(request.getDeviceId());
+        return ResponseEntity.ok(userDTO);
     }
 
     // 사용자 조회 api (deviceId로 조회)
     @GetMapping("/{deviceId}")
-    public ResponseEntity<User> getUserByDeviceId(@PathVariable String deviceId) {
-        User user = userService.getUser(deviceId);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserResponseDTO> getUserByDeviceId(@PathVariable String deviceId) {
+        UserResponseDTO userDTO = userService.getUser(deviceId);
+        return ResponseEntity.ok(userDTO);
     }
 
     // 사용자 삭제 api (앱 삭제 시 호출)
