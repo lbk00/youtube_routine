@@ -2,13 +2,11 @@ package com.example.youtube_routine.Routine;
 
 import lombok.Data;
 
-import java.time.LocalTime;
-
 // 루틴 정보 보여주는 DTO
 @Data
 public class RoutineResponseDTO {
     private Day day;
-    private LocalTime routineTime;
+    private String routineTime;
     private String youtubeLink;
     private String content; // 메시지
     private boolean repeatFlag;

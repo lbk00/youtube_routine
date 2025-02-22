@@ -4,8 +4,6 @@ import com.example.youtube_routine.User.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalTime;
-
 
 @Entity
 @Table(name = "routines")
@@ -21,7 +19,7 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
     private Day day; // 요일
 
     @Column(nullable = false)
-    private LocalTime routineTime; // 알람 시간
+    private String routineTime; // 알람 시간
 
     @Column(nullable = false)
     private String youtubeLink; // 유튜브 링크
@@ -40,7 +38,7 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
     private boolean isActive; // 토글버튼으로 루틴을 켜고 끌지 확인 , true = 켜짐 / false = 꺼짐
 
     @Builder
-    public Routine(Long id, Day day, LocalTime routineTime, String youtubeLink, String content, User user , boolean repeatFlag) {
+    public Routine(Long id, Day day, String routineTime, String youtubeLink, String content, User user , boolean repeatFlag) {
         this.id = id;
         this.day = day;
         this.routineTime = routineTime;
