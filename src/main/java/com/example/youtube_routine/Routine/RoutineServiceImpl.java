@@ -85,4 +85,16 @@ public class RoutineServiceImpl implements RoutineService {
 
         routineRepository.delete(routine);
     }
+
+    @Override
+    @Transactional
+    public RoutineResponseDTO toggleActive(Long routineId) {
+        Routine routine = routineRepository.findById(routineId)
+                .orElseThrow(() -> new EntityNotFoundException("Routine not found with ID: " + routineId));
+
+        // 현재 상태 반전 (true → false, false → true)
+        routine.setActive(!routine.isActive());
+
+        return new RoutineResponseDTO(routine);
+    }
 }

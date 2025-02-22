@@ -7,4 +7,5 @@ public interface RoutineService {
     List<RoutineResponseDTO> getUserRoutines(String deviceId);
     RoutineResponseDTO updateRoutine(Long routineId, RoutineRequestDTO requestDTO);
     void deleteRoutine(Long routineId);
+    RoutineResponseDTO toggleActive(Long routineId);
 }
