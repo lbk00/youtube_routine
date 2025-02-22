@@ -36,6 +36,9 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
     @Column(nullable = false)
     private boolean repeatFlag; // 해당 루틴을 반복 수행할지 확인 , true = 반복 / false = 반복X
 
+    @Column(nullable = false)
+    private boolean isActive; // 토글버튼으로 루틴을 켜고 끌지 확인 , true = 켜짐 / false = 꺼짐
+
     @Builder
     public Routine(Long id, Day day, LocalTime routineTime, String youtubeLink, String content, User user , boolean repeatFlag) {
         this.id = id;
@@ -45,6 +48,7 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
         this.content = content;
         this.user = user;
         this.repeatFlag = repeatFlag;
+        this.isActive = true; // 기본 생성값 true
     }
 
 }

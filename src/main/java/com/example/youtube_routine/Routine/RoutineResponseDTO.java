@@ -12,6 +12,7 @@ public class RoutineResponseDTO {
     private String youtubeLink;
     private String content; // 메시지
     private boolean repeatFlag;
+    private boolean isActive;
 
     public RoutineResponseDTO(Routine routine) {
         this.day = routine.getDay();
@@ -19,6 +20,7 @@ public class RoutineResponseDTO {
         this.youtubeLink = routine.getYoutubeLink();
         this.content = routine.getContent();
         this.repeatFlag = routine.isRepeatFlag();
+        this.isActive = routine.isActive();
     }
 }
 
