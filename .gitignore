@@ -5,6 +5,11 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Firebase 비공개 키 파일 제외
+/src/main/resources/firebase/firebase-service-account.json
+/src/main/resources/firebase/
+
+
 ### STS ###
 .apt_generated
 .classpath
