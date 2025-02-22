@@ -1,9 +1,13 @@
 package com.example.youtube_routine.User;
 
+import com.example.youtube_routine.Exception.GlobalExceptionHandler;
 import com.example.youtube_routine.Routine.RoutineRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -12,37 +16,48 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
 
+    public UserResponseDTO toUserResponseDTO(User user) {
+        return new UserResponseDTO(user);
+    }
+
     // 사용자가 어플을 최초 실행시 기기 고유번호릉 가져옴
     // 기기번호는 클라이언트에서 가져온 후 백엔드에 전달
     @Override
-    public String getDeviceId() {
+    public String getFcmToken() {
         // 안드로이드에서 기기번호 가져오는 코드
         return "";
     }
 
     @Override
-    public User registerUser(String deviceId) {
-        return userRepository.findByDeviceId(deviceId)
-                .orElseGet(() -> userRepository.save(
-                        User.builder()
-                                .deviceId(deviceId)
-                                .build()));
+    @Transactional
+    public UserResponseDTO registerUser(String fcmToken) {
+        if (userRepository.findByFcmToken(fcmToken).isPresent()) {
+            throw new IllegalStateException("이미 등록된 사용자입니다." );
+        }
+        User user = User.builder()
+                .fcmToken(fcmToken)
+                .routines(List.of())
+                .build();
+
+        user = userRepository.save(user);
+        return toUserResponseDTO(user);
     }
 
     @Override
-    public User getUser(String deviceId) {
-        return userRepository.findByDeviceId(deviceId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+    @Transactional
+    public UserResponseDTO getUser(String fcmToken) {
+        User user = userRepository.findByFcmToken(fcmToken)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with fcmToken: " + fcmToken));
+        return toUserResponseDTO(user);
     }
 
     // 사용자 삭제
-    public void deleteUser(String deviceId) {
-        User user = userRepository.findByDeviceId(deviceId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
-
-        // 해당 사용자의 루틴 삭제
+    @Override
+    @Transactional
+    public void deleteUser(String fcmToken) {
+        User user = userRepository.findByFcmToken(fcmToken)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with fcmToken: " + fcmToken));
         routineRepository.deleteAllByUser(user);
-        // 사용자 삭제
         userRepository.delete(user);
     }
 
