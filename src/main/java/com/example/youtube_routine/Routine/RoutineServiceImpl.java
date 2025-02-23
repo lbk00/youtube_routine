@@ -26,9 +26,9 @@ public class RoutineServiceImpl implements RoutineService {
     // 루틴 생성
     @Override
     @Transactional
-    public RoutineResponseDTO createRoutine(String deviceId, RoutineRequestDTO requestDTO) {
-        User user = userRepository.findByDeviceId(deviceId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with deviceId: " + deviceId));
+    public RoutineResponseDTO createRoutine(String fcmToken, RoutineRequestDTO requestDTO) {
+        User user = userRepository.findByFcmToken(fcmToken)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with fcmToken: " + fcmToken));
 
         // 사용자별 루틴 최대 10개로 제한
         if (routineRepository.countByUser(user) >= 10) {
@@ -51,11 +51,11 @@ public class RoutineServiceImpl implements RoutineService {
     // 루틴 조회
     @Override
     @Transactional
-    public List<RoutineResponseDTO> getUserRoutines(String deviceId) {
-        User user = userRepository.findByDeviceId(deviceId)
-                .orElseThrow(() -> new EntityNotFoundException("User with deviceId '" + deviceId + "' not found"));
+    public List<RoutineResponseDTO> getUserRoutines(String fcmToken) {
+        User user = userRepository.findByFcmToken(fcmToken)
+                .orElseThrow(() -> new EntityNotFoundException("User with fcmToken '" + fcmToken + "' not found"));
 
-        List<Routine> routines = routineRepository.findByUserDeviceId(deviceId);
+        List<Routine> routines = routineRepository.findByUserFcmToken(fcmToken);
         return routines.stream()
                 .map(RoutineResponseDTO::new)
                 .collect(Collectors.toList());
@@ -64,9 +64,9 @@ public class RoutineServiceImpl implements RoutineService {
     // 루틴 수정
     @Override
     @Transactional
-    public RoutineResponseDTO updateRoutine(Long routineId, RoutineRequestDTO requestDTO) {
-        Routine routine = routineRepository.findById(routineId)
-                .orElseThrow(() -> new EntityNotFoundException("Routine not found with ID: " + routineId));
+    public RoutineResponseDTO updateRoutine(Long fcmToken, RoutineRequestDTO requestDTO) {
+        Routine routine = routineRepository.findById(fcmToken)
+                .orElseThrow(() -> new EntityNotFoundException("Routine not found with ID: " + fcmToken));
 
         routine.setDay(requestDTO.getDay());
         routine.setRoutineTime(requestDTO.getRoutineTime());
