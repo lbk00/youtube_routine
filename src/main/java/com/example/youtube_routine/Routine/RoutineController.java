@@ -12,6 +12,7 @@ import java.util.List;
 public class RoutineController {
 
     private final RoutineService routineService;
+    private final RoutineScheduler routineScheduler;
 
     //  새로운 루틴 생성 api , 사용자로부터 요일 , 메시지 , 시간 , 링크 , 반복 여부 입력 -> 루틴 반환
     @PostMapping("/create/{deviceId}") // url로 deviceId 전달 , 다른 파라미터는 DTO로 전달
@@ -40,4 +41,19 @@ public class RoutineController {
         routineService.deleteRoutine(routineId);
         return ResponseEntity.noContent().build();
     }
+
+    // 루틴 on/off 토글버튼 api
+    @PutMapping("/toggle/{routineId}")
+    public ResponseEntity<RoutineResponseDTO> toggleRoutineStatus(@PathVariable Long routineId) {
+        RoutineResponseDTO updatedRoutine = routineService.toggleActive(routineId);
+        return ResponseEntity.ok(updatedRoutine);
+    }
+
+    // 루틴 스케줄러 테스트용 api
+    @GetMapping("/test/send-notifications")
+    public ResponseEntity<String> testSendNotifications() {
+        routineScheduler.checkRoutineNotifications();
+        return ResponseEntity.ok("푸시 알림 테스트 실행 완료");
+    }
+
 }
