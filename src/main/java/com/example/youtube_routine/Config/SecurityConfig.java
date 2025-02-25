@@ -2,9 +2,15 @@ package com.example.youtube_routine.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -12,17 +18,30 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())  // CSRF 보호 비활성화 (POST 요청 가능)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용 X
+                .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults()) // CORS 허용
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/**").permitAll()  // 회원가입 엔드포인트 인증 없이 허용
-                        .requestMatchers("/api/notifications/**").permitAll() // 푸시 알림 관련 API 허용
-                        .requestMatchers("api/routines/**").permitAll() // 루틴 api 허용
-                        .anyRequest().authenticated()  // 그 외 모든 요청은 인증 필요
+                        .requestMatchers("/api/users/**").permitAll()
+                        .requestMatchers("/api/notifications/**").permitAll()
+                        .requestMatchers("/api/routines/**").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> httpBasic.disable())  // 기본 인증 비활성화
-                .formLogin(form -> form.disable()); // 폼 로그인 비활성화
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(form -> form.disable());
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // CORS를 허용할 origin들을 적어주세요. (현재 localhost에서 실행되는 웹 클라이언트 주소 추가)
+        configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://10.0.2.2:8080" , "http://192.168.0.5:8080")); // 실제 기기에서 테스트하는 경우 PC의 IP로 변경
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(List.of("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // 모든 엔드포인트에 대해 CORS 설정
+        return source;
     }
 }
