@@ -1,5 +1,6 @@
 package com.example.youtube_routine.Routine;
 
+import com.google.firebase.messaging.FirebaseMessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class RoutineController {
 
     // 루틴 스케줄러 테스트용 api
     @GetMapping("/test/send-notifications")
-    public ResponseEntity<String> testSendNotifications() {
+    public ResponseEntity<String> testSendNotifications() throws FirebaseMessagingException {
         routineScheduler.checkRoutineNotifications();
         return ResponseEntity.ok("푸시 알림 테스트 실행 완료");
     }

@@ -20,7 +20,7 @@ public class RoutineScheduler {
 
     // 매 분 0초마다 실행 (1분 간격)
     @Scheduled(cron = "0 * * * * *")
-    public void checkRoutineNotifications() {
+    public void checkRoutineNotifications() throws FirebaseMessagingException {
         String currentTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")); // 현재 시간 "HH:mm"
 
         // 현재 시간과 일치하는 루틴 조회
@@ -37,7 +37,7 @@ public class RoutineScheduler {
     }
 
     // FCM 푸시 알림을 직접 전송
-    private void sendPushNotification(String fcmToken, Routine routine) {
+    private void sendPushNotification(String fcmToken, Routine routine) throws FirebaseMessagingException {
         try {
             Message fcmMessage = Message.builder()
                     .setToken(fcmToken)
