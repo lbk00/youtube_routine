@@ -17,5 +17,7 @@ public interface RoutineRepository extends JpaRepository<Routine, Long> {
     long countByUser(User user);
     // 특정 시간의 모든 루틴 조회
     List<Routine> findByRoutineTime(String routineTime);
+    // 사용자별 루틴 조회
+    List<Routine> findByUser(User user);
 
 }
