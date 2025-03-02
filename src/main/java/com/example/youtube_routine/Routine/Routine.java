@@ -4,6 +4,10 @@ import com.example.youtube_routine.User.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Entity
 @Table(name = "routines")
@@ -15,8 +19,8 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 루틴 별 고유 id
 
-    @Column(nullable = false)
-    private Day day; // 요일
+    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT ''")
+    private String days;  // 요일
 
     @Column(nullable = false)
     private String routineTime; // 알람 시간
@@ -38,9 +42,9 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
     private boolean isActive; // 토글버튼으로 루틴을 켜고 끌지 확인 , true = 켜짐 / false = 꺼짐
 
     @Builder
-    public Routine(Long id, Day day, String routineTime, String youtubeLink, String content, User user , boolean repeatFlag) {
+    public Routine(Long id, String days, String routineTime, String youtubeLink, String content, User user , boolean repeatFlag) {
         this.id = id;
-        this.day = day;
+        this.days = days;
         this.routineTime = routineTime;
         this.youtubeLink = youtubeLink;
         this.content = content;
@@ -48,5 +52,27 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
         this.repeatFlag = repeatFlag;
         this.isActive = true; // 기본 생성값 true
     }
+
+    // 요일 저장 시 List<Day> → String 변환
+    public void setDays(List<Day> dayList) {
+        if (dayList == null || dayList.isEmpty()) {
+            this.days = ""; // NULL 방지: 빈 문자열로 저장
+        } else {
+            this.days = dayList.stream()
+                    .map(Enum::name)
+                    .collect(Collectors.joining(","));
+        }
+    }
+
+    // DB에서 꺼낼 때 String → List<Day> 변환
+    public List<Day> getDaysList() {
+        if (days == null || days.isEmpty()) {
+            return List.of();
+        }
+        return Arrays.stream(days.split(","))
+                .map(Day::valueOf)
+                .collect(Collectors.toList());
+    }
+
 
 }
