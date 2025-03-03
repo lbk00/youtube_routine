@@ -16,16 +16,16 @@ public class RoutineController {
     private final RoutineScheduler routineScheduler;
 
     //  새로운 루틴 생성 api , 사용자로부터 요일 , 메시지 , 시간 , 링크 , 반복 여부 입력 -> 루틴 반환
-    @PostMapping("/create/{deviceId}") // url로 deviceId 전달 , 다른 파라미터는 DTO로 전달
-    public ResponseEntity<RoutineResponseDTO> createRoutine(@PathVariable String deviceId, @RequestBody RoutineRequestDTO requestDTO) {
-        RoutineResponseDTO routineDTO = routineService.createRoutine(deviceId, requestDTO);
+    @PostMapping("/create/{fcmToken}") // url로 deviceId 전달 , 다른 파라미터는 DTO로 전달
+    public ResponseEntity<RoutineResponseDTO> createRoutine(@PathVariable String fcmToken, @RequestBody RoutineRequestDTO requestDTO) {
+        RoutineResponseDTO routineDTO = routineService.createRoutine(fcmToken, requestDTO);
         return ResponseEntity.ok(routineDTO);
     }
 
     // 사용자 별 루틴 조회 api // deviceId로 조회
-    @GetMapping("/user/{deviceId}")
-    public ResponseEntity<List<RoutineResponseDTO>> getUserRoutines(@PathVariable String deviceId) {
-        List<RoutineResponseDTO> routines = routineService.getUserRoutines(deviceId);
+    @GetMapping("/user/{fcmToken}")
+    public ResponseEntity<List<RoutineResponseDTO>> getUserRoutines(@PathVariable String fcmToken) {
+        List<RoutineResponseDTO> routines = routineService.getUserRoutines(fcmToken);
         return ResponseEntity.ok(routines);
     }
 
