@@ -22,7 +22,7 @@ public class RoutineController {
         return ResponseEntity.ok(routineDTO);
     }
 
-    // 사용자 별 루틴 조회 api // deviceId로 조회
+    // 사용자 별 루틴 조회 api // fcmToken 으로 조회
     @GetMapping("/user/{fcmToken}")
     public ResponseEntity<List<RoutineResponseDTO>> getUserRoutines(@PathVariable String fcmToken) {
         List<RoutineResponseDTO> routines = routineService.getUserRoutines(fcmToken);
