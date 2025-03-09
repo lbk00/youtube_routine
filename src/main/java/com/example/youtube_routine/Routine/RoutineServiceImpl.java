@@ -79,7 +79,7 @@ public class RoutineServiceImpl implements RoutineService {
         routine.setYoutubeLink(requestDTO.getYoutubeLink());
         routine.setContent(requestDTO.getContent());
         routine.setRepeatFlag(requestDTO.isRepeatFlag());
-        routine.setActive(true); // 수정 시 활성화 상태로 변경
+        routine.setActive(true); // 수정 시 isActive true로 변경
 
         return toRoutineResponseDTO(routine);
     }
