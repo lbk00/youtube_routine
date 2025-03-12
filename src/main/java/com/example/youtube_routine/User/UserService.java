@@ -7,6 +7,8 @@ public interface UserService {
     UserResponseDTO registerUser(String fcmToken);
     // fcmToken 으로 사용자 조회
     UserResponseDTO getUser(String fcmToken);
+    // fcmToken 으로 사용자 fcmToken 값 업데이트
+    UserResponseDTO updateUser(String fcmToken, String newFcmToken);
     // fcmToken 으로 사용자 삭제
     void deleteUser(String fcmToken);
 

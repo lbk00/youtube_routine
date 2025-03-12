@@ -1,8 +1,11 @@
 package com.example.youtube_routine.User;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/users")
@@ -29,6 +32,17 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> getUserByFcmToken(@PathVariable String fcmToken) {
         UserResponseDTO userDTO = userService.getUser(fcmToken);
         return ResponseEntity.ok(userDTO);
+    }
+
+    // 사용자 정보 수정 api ( fcm 토큰 갱신시 호출 )
+    @PutMapping("/update-fcm")
+    public ResponseEntity<?> updateFcmToken(@RequestBody Map<String, String> request) {
+        String oldFcmToken = request.get("oldFcmToken");
+        String newFcmToken = request.get("newFcmToken");
+
+        UserResponseDTO updated = userService.updateUser(oldFcmToken, newFcmToken);
+
+        return ResponseEntity.ok(updated);
     }
 
     // 사용자 삭제 api (앱 삭제 시 호출)

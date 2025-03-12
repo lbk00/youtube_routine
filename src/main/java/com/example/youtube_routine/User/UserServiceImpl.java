@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +49,18 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO getUser(String fcmToken) {
         User user = userRepository.findByFcmToken(fcmToken)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with fcmToken: " + fcmToken));
+        return toUserResponseDTO(user);
+    }
+
+    // 사용자 fcm 토큰 업데이트
+    @Override
+    @Transactional
+    public UserResponseDTO updateUser(String fcmToken, String newFcmToken) {
+        User user = userRepository.findByFcmToken(fcmToken)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with fcmToken: " + fcmToken));
+
+        user.setFcmToken(newFcmToken);
+        userRepository.save(user);
         return toUserResponseDTO(user);
     }
 
