@@ -56,4 +56,29 @@ public class RoutineScheduler {
             e.printStackTrace();
         }
     }
+
+    // FCM 푸시 알림을 직접 전송 테스트
+    public void sendPushNotificationTest(String fcmToken, Routine routine) throws FirebaseMessagingException {
+        try {
+            Message fcmMessage = Message.builder()
+                    .setToken(fcmToken)
+                    .setNotification(Notification.builder()
+                            .setTitle("오늘의 루틴") // 알림 제목
+                            .setBody(routine.getContent()) // 알림 내용
+                            .build())
+                    .putData("youtubeLink", routine.getYoutubeLink()) // 유튜브 링크
+                    .build(); // 알림 클릭하면 바로 해당 유튜브 영상으로 이동
+
+            String response = FirebaseMessaging.getInstance().send(fcmMessage);
+            System.out.println("[FCM 전송 완료] 루틴 ID: " + routine.getId() + ", 응답: " + response);
+
+        } catch (FirebaseMessagingException e) {
+            System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId());
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }
