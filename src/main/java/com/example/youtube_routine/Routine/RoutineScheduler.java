@@ -1,9 +1,7 @@
 package com.example.youtube_routine.Routine;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
-import com.google.firebase.messaging.Notification;
+import com.example.youtube_routine.User.UserRepository;
+import com.google.firebase.messaging.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,6 +17,7 @@ import java.util.List;
 public class RoutineScheduler {
 
     private final RoutineRepository routineRepository;
+    private final UserRepository userRepository;
 
     // 매 분 0초마다 실행 (1분 간격)
     @Scheduled(cron = "0 * * * * *")
@@ -58,7 +57,20 @@ public class RoutineScheduler {
 
             // 모든 조건 통과
             System.out.println("FCM 전송 시작");
-            sendPushNotification(fcmToken, routine);
+
+            // FCM 전송 시도 및 실패 감지시 사용자 삭제
+            try {
+                sendPushNotification(fcmToken, routine);
+            } catch (FirebaseMessagingException e) {
+                System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + ", 이유: " + e.getMessage());
+
+                if (e.getMessagingErrorCode() == MessagingErrorCode.UNREGISTERED) {
+                    userRepository.deleteByFcmToken(fcmToken); // 사용자 삭제
+                    System.out.println("FCM 토큰 무효 → 사용자 삭제 완료");
+                }
+
+                continue;
+            }
 
             // 반복 플래그 비활성화 : 1번 실행 후 is_active = false로 변경
             if (!routine.isRepeatFlag()) {
@@ -67,8 +79,6 @@ public class RoutineScheduler {
                 System.out.println("반복 없음 → 루틴 비활성화 처리 완료");
             }
         }
-
-
     }
 
     // 요일이 일치하는지 확인하는 메서드
@@ -85,7 +95,7 @@ public class RoutineScheduler {
 
 
     // FCM 푸시 알림 전송
-    private void sendPushNotification(String fcmToken, Routine routine) {
+    private void sendPushNotification(String fcmToken, Routine routine) throws FirebaseMessagingException {
         try {
             System.out.println("[FCM 시도] 루틴 ID: " + routine.getId());
             System.out.println("FCM 토큰: " + fcmToken);
