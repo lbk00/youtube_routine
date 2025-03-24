@@ -56,10 +56,18 @@ public class RoutineScheduler {
                 continue;
             }
 
-            // ✅ 모든 조건 통과
+            // 모든 조건 통과
             System.out.println("FCM 전송 시작");
             sendPushNotification(fcmToken, routine);
+
+            // 반복 플래그 비활성화 : 1번 실행 후 is_active = false로 변경
+            if (!routine.isRepeatFlag()) {
+                routine.setActive(false);
+                routineRepository.save(routine);
+                System.out.println("반복 없음 → 루틴 비활성화 처리 완료");
+            }
         }
+
 
     }
 
