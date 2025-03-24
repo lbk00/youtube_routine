@@ -20,6 +20,6 @@ public interface RoutineRepository extends JpaRepository<Routine, Long> {
     // 사용자별 루틴 조회
     List<Routine> findByUser(User user);
     // days 컬럼에 현재 요일이 포함된 루틴 조회
-    @Query("SELECT r FROM Routine r WHERE r.routineTime = :routineTime AND r.days LIKE %:day%")
-    List<Routine> findByRoutineTimeAndDay(String routineTime, String day);
+//    @Query("SELECT r FROM Routine r WHERE r.routineTime = :routineTime AND r.days LIKE %:day%")
+//    List<Routine> findByRoutineTimeAndDay(String routineTime, String day);
 }
