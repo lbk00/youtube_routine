@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,9 @@ public class UserServiceImpl implements UserService {
                 .fcmToken(fcmToken)
                 .routines(List.of())
                 .build();
+
+        user.setLastActiveAt(LocalDateTime.now());   // 초기 활성화시간
+        user.setActive(true);
 
         user = userRepository.save(user);
         return toUserResponseDTO(user);
