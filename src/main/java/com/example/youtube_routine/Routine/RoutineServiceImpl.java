@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,8 +44,12 @@ public class RoutineServiceImpl implements RoutineService {
                 .user(user)
                 .build();
 
-        routine.setDays(Optional.ofNullable(requestDTO.getDays()).orElse(List.of())); // ✅ NULL 방지
+        routine.setDays(Optional.ofNullable(requestDTO.getDays()).orElse(List.of())); // NULL 방지
 
+        //활동 시간 갱신
+        user.setLastActiveAt(LocalDateTime.now());
+        user.setActive(true);
+        userRepository.save(user);
         routine = routineRepository.save(routine);
         return toRoutineResponseDTO(routine);
     }
@@ -81,15 +86,25 @@ public class RoutineServiceImpl implements RoutineService {
         routine.setRepeatFlag(requestDTO.isRepeatFlag());
         routine.setActive(true); // 수정 시 isActive true로 변경
 
+        //루틴 소유자의 활동 시간 갱신
+        User user = routine.getUser();
+        user.setLastActiveAt(LocalDateTime.now());
+        user.setActive(true);
+        userRepository.save(user);
+
         return toRoutineResponseDTO(routine);
     }
 
     @Override
     @Transactional
     public void deleteRoutine(Long routineId) {
-        if (!routineRepository.existsById(routineId)) {
-            throw new EntityNotFoundException("Routine not found with ID: " + routineId);
-        }
+        Routine routine = routineRepository.findById(routineId)
+                .orElseThrow(() -> new EntityNotFoundException("Routine not found with ID: " + routineId));
+
+        User user = routine.getUser();
+        user.setLastActiveAt(LocalDateTime.now()); //  활동 시간 갱신
+        user.setActive(true);
+        userRepository.save(user);
         routineRepository.deleteById(routineId);
     }
 
@@ -101,6 +116,11 @@ public class RoutineServiceImpl implements RoutineService {
 
         // 현재 상태 반전 (true → false, false → true)
         routine.setActive(!routine.isActive());
+
+        User user = routine.getUser();
+        user.setLastActiveAt(LocalDateTime.now());
+        user.setActive(true);
+        userRepository.save(user); //  활동 시간 갱신
 
         return new RoutineResponseDTO(routine);
     }

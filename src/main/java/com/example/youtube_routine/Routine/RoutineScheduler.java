@@ -1,5 +1,6 @@
 package com.example.youtube_routine.Routine;
 
+import com.example.youtube_routine.User.User;
 import com.example.youtube_routine.User.UserRepository;
 import com.google.firebase.messaging.*;
 import lombok.RequiredArgsConstructor;
@@ -58,15 +59,19 @@ public class RoutineScheduler {
             // 모든 조건 통과
             System.out.println("FCM 전송 시작");
 
-            // FCM 전송 시도 및 실패 감지시 사용자 삭제
+            // FCM 전송 시도 및 실패 감지시 사용자 isActive = false
+            // UserScheduler가 30일 이후 자동 삭제
             try {
                 sendPushNotification(fcmToken, routine);
             } catch (FirebaseMessagingException e) {
                 System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + ", 이유: " + e.getMessage());
 
                 if (e.getMessagingErrorCode() == MessagingErrorCode.UNREGISTERED) {
-                    userRepository.deleteByFcmToken(fcmToken); // 사용자 삭제
-                    System.out.println("FCM 토큰 무효 → 사용자 삭제 완료");
+                    User user = routine.getUser();
+
+                    user.setActive(false); // 비활성화 마킹
+                    userRepository.save(user);
+                    System.out.println("FCM 토큰 무효 → 사용자 isActive=false 처리 완료");
                 }
 
                 continue;
