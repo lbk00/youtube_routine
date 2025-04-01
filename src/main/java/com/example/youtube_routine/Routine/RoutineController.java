@@ -50,24 +50,4 @@ public class RoutineController {
         return ResponseEntity.ok(updatedRoutine);
     }
 
-    // 루틴 스케줄러 테스트용 api
-    @GetMapping("/test/send-notifications")
-    public ResponseEntity<String> sendNotifications() throws FirebaseMessagingException {
-        routineScheduler.checkRoutineNotifications();
-        return ResponseEntity.ok("푸시 알림 테스트 실행 완료");
-    }
-
-
-    // 푸시 알림 테스트 , routine스케줄러로 요청
-    // 최초실행시 프론트엔드에서 fcmToken을 받아서 사용자를 생성해야함
-    @GetMapping("/test/send-notifications-test")
-    public ResponseEntity<String> testSendNotifications() throws FirebaseMessagingException {
-        routineScheduler.sendPushNotificationTest("fcm1", Routine.builder()
-                .id(1L)
-                .content("푸시 알림 테스트")
-                .youtubeLink("https://www.youtube.com")
-                .build());
-        return ResponseEntity.ok("푸시 알림 테스트 실행 완료");
-    }
-
 }
