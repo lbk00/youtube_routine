@@ -5,6 +5,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+application.properties
 
 # Firebase 비공개 키 파일 제외
 /src/main/resources/firebase/firebase-service-account.json
