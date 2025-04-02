@@ -22,14 +22,6 @@ public class UserServiceImpl implements UserService {
         return new UserResponseDTO(user);
     }
 
-    // 사용자가 어플을 최초 실행시 기기 고유번호릉 가져옴
-    // 기기번호는 클라이언트에서 가져온 후 백엔드에 전달
-    @Override
-    public String getFcmToken() {
-        // 안드로이드에서 기기번호 가져오는 코드
-        return "";
-    }
-
     @Override
     @Transactional
     public UserResponseDTO registerUser(String fcmToken) {
