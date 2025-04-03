@@ -1,8 +1,6 @@
 package com.example.youtube_routine.Exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public class ErrorResponse {

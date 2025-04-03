@@ -1,6 +1,5 @@
 package com.example.youtube_routine.User;
 
-import com.example.youtube_routine.Exception.GlobalExceptionHandler;
 import com.example.youtube_routine.Routine.RoutineRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
