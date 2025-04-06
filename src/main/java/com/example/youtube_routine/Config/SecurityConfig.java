@@ -36,7 +36,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // CORS를 허용할 origin들을 적어주세요. (현재 localhost에서 실행되는 웹 클라이언트 주소 추가)
+        // CORS를 허용할 주소 (현재 localhost에서 실행되는 웹 클라이언트 주소)
+        // 안드로이드 환경에서는 필요없음
         configuration.setAllowedOrigins(List.of("http://localhost:8080", "http://10.0.2.2:8080" , "http://192.168.0.5:8080")); // 실제 기기에서 테스트하는 경우 PC의 IP로 변경
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(List.of("*"));
