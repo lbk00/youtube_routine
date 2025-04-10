@@ -109,7 +109,7 @@ public class RoutineScheduler {
             Message fcmMessage = Message.builder()
                     .setToken(fcmToken)
                     .putData("title", routine.getContent()) // 알림 제목
-                    .putData("body", "오늘의 루틴")      // 알림 내용
+                    .putData("body", "오늘 할 루틴이 도착했어요!")      // 알림 내용
                     .putData("youtubeLink", routine.getYoutubeLink()) // 유튜브 링크
                     .build();
 
