@@ -11,6 +11,7 @@ application.properties
 /src/main/resources/firebase/firebase-service-account.json
 /src/main/resources/firebase/
 
+docs/fcm_user_cleanup.md
 
 ### STS ###
 .apt_generated
