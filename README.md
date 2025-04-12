@@ -33,4 +33,4 @@ Flutter 앱은 사용자가 앱을 삭제했는지 감지할 수 없기 때문�
 FCM 실패 응답을 기반으로 사용자 비활성화 처리 →  
 30일 이상 활동 없는 사용자 자동 삭제 로직 추가
 
-- [링크](#../docs/fcm_user_cleanup.md)
+- [링크](#./docs/fcm_user_cleanup.md)
