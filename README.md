@@ -19,4 +19,18 @@ https://github.com/user-attachments/assets/5a5edbe2-1b0a-45c9-a245-bcc222bce4a0
 - 프론트엔드 : Flutter, Dart
 - 인프라 : Firebase Cloud Messaging (FCM)
 
-### 트러블 슈팅
+### 트러블슈팅
+
+#### 앱 삭제 시 유령 사용자 및 FCM 토큰 처리 문제
+
+> **문제 상황**
+
+Flutter 앱은 사용자가 앱을 삭제했는지 감지할 수 없기 때문에  
+서버에는 FCM 토큰과 사용자 정보가 남아 불필요한 푸시 알림이 계속 시도되는 문제 발생
+
+> **해결 방안**
+
+FCM 실패 응답을 기반으로 사용자 비활성화 처리 →  
+30일 이상 활동 없는 사용자 자동 삭제 로직 추가
+
+(./docs/fcm_user_cleanup.md)
