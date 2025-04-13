@@ -1,6 +1,6 @@
 package com.example.youtube_routine.Config;
 
-import com.google.api.client.util.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -16,7 +16,7 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    @Value("${aws.ec2.ipv4}")
+    @Value("${aws.ec2.ipv4}") // utils value 아님
     private String ec2IpAddress;
 
     @Bean
@@ -45,7 +45,6 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
 //                "http://localhost:8080",
 //                "http://10.0.2.2:8080" ,
-                ec2IpAddress // ec2 퍼블릭 IPv4 주소
         )); // 실제 기기에서 테스트하는 경우 PC의 IP로 변경
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(List.of("*"));
