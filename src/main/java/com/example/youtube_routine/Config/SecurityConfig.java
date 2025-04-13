@@ -45,6 +45,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
 //                "http://localhost:8080",
 //                "http://10.0.2.2:8080" ,
+                ec2IpAddress
         )); // 실제 기기에서 테스트하는 경우 PC의 IP로 변경
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(List.of("*"));
