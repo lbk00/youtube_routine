@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 // firebase-service-account.json을 사용하여 Firebase 앱을 초기화
 @Configuration
@@ -17,8 +18,12 @@ public class FirebaseConfig {
     public void initialize() {
         try {
 //            System.out.println("🟡 [Firebase 초기화 시도]");
-            FileInputStream serviceAccount =
-                    new FileInputStream("src/main/resources/firebase/firebase-service-account.json");
+            InputStream serviceAccount = getClass().getClassLoader()
+                    .getResourceAsStream("firebase/firebase-service-account.json");
+
+            if (serviceAccount == null) {
+                throw new IllegalStateException("❌ firebase-service-account.json 파일을 classpath에서 찾을 수 없습니다.");
+            }
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
