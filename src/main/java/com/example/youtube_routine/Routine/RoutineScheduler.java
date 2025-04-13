@@ -29,49 +29,49 @@ public class RoutineScheduler {
         // 현재 시간과 일치하는 루틴 조회
         List<Routine> routines = routineRepository.findByRoutineTime(currentTime);
 
-        System.out.println("[디버깅] 현재 요일: " + currentDay + ", 현재 시간: " + currentTime);
-        System.out.println("[디버깅] 검색된 루틴 개수: " + routines.size());
+//        System.out.println("[디버깅] 현재 요일: " + currentDay + ", 현재 시간: " + currentTime);
+//        System.out.println("[디버깅] 검색된 루틴 개수: " + routines.size());
 
         for (Routine routine : routines) {
-            System.out.println("[디버깅] 루틴 ID: " + routine.getId());
+//            System.out.println("[디버깅] 루틴 ID: " + routine.getId());
 
             if (!routine.isActive()) {
-                System.out.println("루틴 비활성화됨");
+//                System.out.println("루틴 비활성화됨");
                 continue;
             }
 
             if (routine.getUser() == null) {
-                System.out.println("유저 정보 없음");
+//                System.out.println("유저 정보 없음");
                 continue;
             }
 
             String fcmToken = routine.getUser().getFcmToken();
             if (fcmToken == null || fcmToken.isEmpty()) {
-                System.out.println("FCM 토큰 없음");
+//                System.out.println("FCM 토큰 없음");
                 continue;
             }
 
             if (!isRoutineDayMatched(routine.getDays(), currentDay)) {
-                System.out.println("오늘 요일(" + currentDay + ")이 루틴 요일에 포함되지 않음: " + routine.getDays());
+//                System.out.println("오늘 요일(" + currentDay + ")이 루틴 요일에 포함되지 않음: " + routine.getDays());
                 continue;
             }
 
             // 모든 조건 통과
-            System.out.println("FCM 전송 시작");
+//            System.out.println("FCM 전송 시작");
 
             // FCM 전송 시도 및 실패 감지시 사용자 isActive = false
             // UserScheduler가 30일 이후 자동 삭제
             try {
                 sendPushNotification(fcmToken, routine);
             } catch (FirebaseMessagingException e) {
-                System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + ", 이유: " + e.getMessage());
+//                System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + ", 이유: " + e.getMessage());
 
                 if (e.getMessagingErrorCode() == MessagingErrorCode.UNREGISTERED) {
                     User user = routine.getUser();
 
                     user.setActive(false); // 비활성화 마킹
                     userRepository.save(user);
-                    System.out.println("FCM 토큰 무효 → 사용자 isActive=false 처리 완료");
+//                    System.out.println("FCM 토큰 무효 → 사용자 isActive=false 처리 완료");
                 }
 
                 continue;
@@ -81,7 +81,7 @@ public class RoutineScheduler {
             if (!routine.isRepeatFlag()) {
                 routine.setActive(false);
                 routineRepository.save(routine);
-                System.out.println("반복 없음 → 루틴 비활성화 처리 완료");
+//                System.out.println("반복 없음 → 루틴 비활성화 처리 완료");
             }
         }
     }
@@ -102,9 +102,9 @@ public class RoutineScheduler {
     // FCM 푸시 알림 전송
     private void sendPushNotification(String fcmToken, Routine routine) throws FirebaseMessagingException {
         try {
-//            System.out.println("[FCM 시도] 루틴 ID: " + routine.getId());
-//            System.out.println("FCM 토큰: " + fcmToken);
-//            System.out.println("유튜브 링크: " + routine.getYoutubeLink());
+////            System.out.println("[FCM 시도] 루틴 ID: " + routine.getId());
+////            System.out.println("FCM 토큰: " + fcmToken);
+////            System.out.println("유튜브 링크: " + routine.getYoutubeLink());
 
             Message fcmMessage = Message.builder()
                     .setToken(fcmToken)
@@ -114,10 +114,10 @@ public class RoutineScheduler {
                     .build();
 
             String response = FirebaseMessaging.getInstance().send(fcmMessage);
-//            System.out.println("[FCM 전송 완료] 응답: " + response);
+////            System.out.println("[FCM 전송 완료] 응답: " + response);
 
         } catch (FirebaseMessagingException e) {
-//            System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + " 이유: " + e.getMessage());
+////            System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + " 이유: " + e.getMessage());
             e.printStackTrace();
         }
     }
