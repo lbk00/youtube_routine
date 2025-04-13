@@ -102,9 +102,9 @@ public class RoutineScheduler {
     // FCM 푸시 알림 전송
     private void sendPushNotification(String fcmToken, Routine routine) throws FirebaseMessagingException {
         try {
-            System.out.println("[FCM 시도] 루틴 ID: " + routine.getId());
-            System.out.println("FCM 토큰: " + fcmToken);
-            System.out.println("유튜브 링크: " + routine.getYoutubeLink());
+//            System.out.println("[FCM 시도] 루틴 ID: " + routine.getId());
+//            System.out.println("FCM 토큰: " + fcmToken);
+//            System.out.println("유튜브 링크: " + routine.getYoutubeLink());
 
             Message fcmMessage = Message.builder()
                     .setToken(fcmToken)
@@ -114,10 +114,10 @@ public class RoutineScheduler {
                     .build();
 
             String response = FirebaseMessaging.getInstance().send(fcmMessage);
-            System.out.println("[FCM 전송 완료] 응답: " + response);
+//            System.out.println("[FCM 전송 완료] 응답: " + response);
 
         } catch (FirebaseMessagingException e) {
-            System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + " 이유: " + e.getMessage());
+//            System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + " 이유: " + e.getMessage());
             e.printStackTrace();
         }
     }

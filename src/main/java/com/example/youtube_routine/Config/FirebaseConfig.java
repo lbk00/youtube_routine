@@ -16,7 +16,7 @@ public class FirebaseConfig {
     @PostConstruct
     public void initialize() {
         try {
-            System.out.println("🟡 [Firebase 초기화 시도]");
+//            System.out.println("🟡 [Firebase 초기화 시도]");
             FileInputStream serviceAccount =
                     new FileInputStream("src/main/resources/firebase/firebase-service-account.json");
 
@@ -26,13 +26,13 @@ public class FirebaseConfig {
 
             if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
-                System.out.println("Firebase 초기화 완료");
+//                System.out.println("Firebase 초기화 완료");
             } else {
-                System.out.println("FirebaseApp 이미 초기화됨 → 재초기화 생략");
+//                System.out.println("FirebaseApp 이미 초기화됨 → 재초기화 생략");
             }
 
         } catch (IOException e) {
-            System.err.println("Firebase 설정 파일 로딩 실패: " + e.getMessage());
+//            System.err.println("Firebase 설정 파일 로딩 실패: " + e.getMessage());
         }
     }
 

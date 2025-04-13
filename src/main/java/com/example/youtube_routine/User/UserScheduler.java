@@ -28,7 +28,7 @@ public class UserScheduler {
 
             if (isInactive && isOver30Days) {
                 userRepository.delete(user);
-                System.out.println("30일 이상 비활성 사용자 삭제됨 → FCM: " + user.getFcmToken());
+//                System.out.println("30일 이상 비활성 사용자 삭제됨 → FCM: " + user.getFcmToken());
             }
         }
     }
