@@ -31,7 +31,7 @@ public class Routine { // 사용자마다 최대 10개? 15개정도 제한되도
     @Column(nullable = false)
     private String content; // 푸시 알람으로 보여줄 텍스트 설정 , 간단한 설명 ex) 저녁 운동 , 아침 스트레칭
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 알람을 설정한 사용자
 

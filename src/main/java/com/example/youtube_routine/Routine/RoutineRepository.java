@@ -2,6 +2,7 @@ package com.example.youtube_routine.Routine;
 
 import com.example.youtube_routine.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface RoutineRepository extends JpaRepository<Routine, Long> {
     List<Routine> findByRoutineTime(String routineTime);
     // 사용자별 루틴 조회
     List<Routine> findByUser(User user);
-    // days 컬럼에 현재 요일이 포함된 루틴 조회
-//    @Query("SELECT r FROM Routine r WHERE r.routineTime = :routineTime AND r.days LIKE %:day%")
-//    List<Routine> findByRoutineTimeAndDay(String routineTime, String day);
+    // N+1 방지용: Routine + User 함께 조회 (fetch join)
+    @Query("SELECT r FROM Routine r JOIN FETCH r.user WHERE r.routineTime = :routineTime")
+    List<Routine> findByRoutineTimeWithUser(@Param("routineTime") String routineTime);
 }

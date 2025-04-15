@@ -27,7 +27,7 @@ public class RoutineScheduler {
         String currentTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")); // 현재 시간 (HH:mm)
 
         // 현재 시간과 일치하는 루틴 조회
-        List<Routine> routines = routineRepository.findByRoutineTime(currentTime);
+        List<Routine> routines = routineRepository.findByRoutineTimeWithUser(currentTime);
 
 //        System.out.println("[디버깅] 현재 요일: " + currentDay + ", 현재 시간: " + currentTime);
 //        System.out.println("[디버깅] 검색된 루틴 개수: " + routines.size());
@@ -108,10 +108,13 @@ public class RoutineScheduler {
 
             Message fcmMessage = Message.builder()
                     .setToken(fcmToken)
-                    .putData("title", routine.getContent()) // 알림 제목
-                    .putData("body", "오늘 할 루틴이 도착했어요!")      // 알림 내용
-                    .putData("youtubeLink", routine.getYoutubeLink()) // 유튜브 링크
+                    .setNotification(Notification.builder()
+                            .setTitle(routine.getContent())
+                            .setBody("오늘 할 루틴이 도착했어요!")
+                            .build())
+                    .putData("youtubeLink", routine.getYoutubeLink()) // 유튜브 링크만 별도로 data로
                     .build();
+
 
             String response = FirebaseMessaging.getInstance().send(fcmMessage);
 //            System.out.println("[FCM 전송 완료] 응답: " + response);
