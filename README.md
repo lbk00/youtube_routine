@@ -32,6 +32,9 @@
 https://github.com/user-attachments/assets/5a5edbe2-1b0a-45c9-a245-bcc222bce4a0
 
 
+## SW Architecture
+![image](https://github.com/user-attachments/assets/56e4a382-489d-4447-ac71-ea1b9bdff914)
+
 
 ## 기술 스택
 - 백엔드 : Java, Spring Boot, JPA, MySQL
