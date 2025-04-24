@@ -33,15 +33,15 @@
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/f91381bb-87ce-43a1-8bb3-7ffb3b356a87" width="200"/><br/>
+      <img src="https://github.com/user-attachments/assets/f91381bb-87ce-43a1-8bb3-7ffb3b356a87" width="300"/><br/>
       <sub>1. 사용자가 설정할 요일, 시간, 유튜브 링크를 입력하면 루틴이 생성됩니다.</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/8aeaaab2-9e3a-478e-b275-0626ffcf74f3" width="200"/><br/>
+      <img src="https://github.com/user-attachments/assets/8aeaaab2-9e3a-478e-b275-0626ffcf74f3" width="300"/><br/>
       <sub>2. 생성된 루틴은 목록에서 쉽게 확인하고, ON/OFF, 수정, 삭제할 수 있습니다.</sub>
     </td>
     <td align="center">
-      <img src="https://github.com/user-attachments/assets/c11a3112-fbe8-4fd5-8e63-afa22f33477e" width="200"/><br/>
+      <img src="https://github.com/user-attachments/assets/c11a3112-fbe8-4fd5-8e63-afa22f33477e" width="300"/><br/>
       <sub>3. 설정된 시간에 푸시 알림이 도착하고, 클릭 시 유튜브 영상으로 연결됩니다.</sub>
     </td>
   </tr>
@@ -49,8 +49,6 @@
 
 
 
-
-**1. 사용자가 설정할 요일, 시간, 유튜브 링크를 입력하면 루틴이 생성됩니다.**
 
 https://github.com/user-attachments/assets/5a5edbe2-1b0a-45c9-a245-bcc222bce4a0
 
