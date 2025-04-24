@@ -48,9 +48,10 @@
 </table>
 
 
+https://github.com/user-attachments/assets/7a532773-f3ea-4fe5-b508-70ea422c7ad1
 
 
-https://github.com/user-attachments/assets/5a5edbe2-1b0a-45c9-a245-bcc222bce4a0
+
 
 
 ## SW Architecture
