@@ -28,9 +28,34 @@
 
 <br>
 
-## 시연 영상
-https://github.com/user-attachments/assets/5a5edbe2-1b0a-45c9-a245-bcc222bce4a0
+## 기능 흐름 및 시연 영상
 
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/f91381bb-87ce-43a1-8bb3-7ffb3b356a87" width="300"/><br/>
+      <sub>1. 사용자가 설정할 요일, 시간, 유튜브 링크를 입력하면 루틴이 생성됩니다.</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/8aeaaab2-9e3a-478e-b275-0626ffcf74f3" width="300"/><br/>
+      <sub>2. 생성된 루틴은 목록에서 쉽게 확인하고, ON/OFF, 수정, 삭제할 수 있습니다.</sub>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/c11a3112-fbe8-4fd5-8e63-afa22f33477e" width="300"/><br/>
+      <sub>3. 설정된 시간에 푸시 알림이 도착하고, 클릭 시 유튜브 영상으로 연결됩니다.</sub>
+    </td>
+  </tr>
+</table>
+
+
+https://github.com/user-attachments/assets/7a532773-f3ea-4fe5-b508-70ea422c7ad1
+
+
+
+
+
+## SW Architecture
+![image](https://github.com/user-attachments/assets/56e4a382-489d-4447-ac71-ea1b9bdff914)
 
 
 ## 기술 스택
