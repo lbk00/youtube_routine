@@ -1,5 +1,7 @@
-package com.example.youtube_routine.Routine;
+package com.example.youtube_routine.Routine.DTO;
 
+import com.example.youtube_routine.Routine.Entity.Day;
+import com.example.youtube_routine.Routine.Entity.Routine;
 import lombok.Data;
 
 import java.util.List;
