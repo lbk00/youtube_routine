@@ -1,4 +1,4 @@
-package com.example.youtube_routine.Routine;
+package com.example.youtube_routine.Routine.Entity;
 
 import com.example.youtube_routine.User.User;
 import jakarta.persistence.*;

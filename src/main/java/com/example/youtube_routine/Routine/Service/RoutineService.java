@@ -1,4 +1,7 @@
-package com.example.youtube_routine.Routine;
+package com.example.youtube_routine.Routine.Service;
+
+import com.example.youtube_routine.Routine.DTO.RoutineRequestDTO;
+import com.example.youtube_routine.Routine.DTO.RoutineResponseDTO;
 
 import java.util.List;
 
