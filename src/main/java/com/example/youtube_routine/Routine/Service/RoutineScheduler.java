@@ -2,8 +2,8 @@ package com.example.youtube_routine.Routine.Service;
 
 import com.example.youtube_routine.Routine.Entity.Routine;
 import com.example.youtube_routine.Routine.Repository.RoutineRepository;
-import com.example.youtube_routine.User.User;
-import com.example.youtube_routine.User.UserRepository;
+import com.example.youtube_routine.User.Entity.User;
+import com.example.youtube_routine.User.Repository.UserRepository;
 import com.google.firebase.messaging.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
