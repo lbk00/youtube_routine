@@ -1,5 +1,8 @@
-package com.example.youtube_routine.User;
+package com.example.youtube_routine.User.Controller;
 
+import com.example.youtube_routine.User.DTO.UserRequestDTO;
+import com.example.youtube_routine.User.DTO.UserResponseDTO;
+import com.example.youtube_routine.User.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

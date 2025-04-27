@@ -1,7 +1,8 @@
-package com.example.youtube_routine.User;
+package com.example.youtube_routine.User.DTO;
 
 
-import com.example.youtube_routine.Routine.RoutineResponseDTO;
+import com.example.youtube_routine.Routine.DTO.RoutineResponseDTO;
+import com.example.youtube_routine.User.Entity.User;
 import lombok.Data;
 
 import java.util.List;

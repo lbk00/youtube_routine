@@ -1,6 +1,9 @@
-package com.example.youtube_routine.User;
+package com.example.youtube_routine.User.Service;
 
-import com.example.youtube_routine.Routine.RoutineRepository;
+import com.example.youtube_routine.Routine.Repository.RoutineRepository;
+import com.example.youtube_routine.User.Entity.User;
+import com.example.youtube_routine.User.Repository.UserRepository;
+import com.example.youtube_routine.User.DTO.UserResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

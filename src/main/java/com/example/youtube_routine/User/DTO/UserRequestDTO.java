@@ -1,4 +1,4 @@
-package com.example.youtube_routine.User;
+package com.example.youtube_routine.User.DTO;
 
 import lombok.Data;
 

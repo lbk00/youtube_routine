@@ -1,4 +1,6 @@
-package com.example.youtube_routine.User;
+package com.example.youtube_routine.User.Service;
+
+import com.example.youtube_routine.User.DTO.UserResponseDTO;
 
 public interface UserService {
     //fcmToken 전달 받고 사용자 객체 생성

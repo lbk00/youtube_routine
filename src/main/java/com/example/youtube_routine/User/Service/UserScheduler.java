@@ -1,6 +1,8 @@
-package com.example.youtube_routine.User;
+package com.example.youtube_routine.User.Service;
 
 
+import com.example.youtube_routine.User.Entity.User;
+import com.example.youtube_routine.User.Repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
