@@ -80,3 +80,6 @@ FCM 실패 응답을 기반으로 사용자 비활성화 처리
 -> 30일 이상 활동 없는 사용자 자동 삭제 로직 추가
 
 - [상세 해결 과정](./docs/fcm_user_cleanup.md)
+
+## 프론트엔드
+- https://github.com/lbk00/youtube_routine_front
