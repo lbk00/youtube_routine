@@ -1,5 +1,7 @@
 ## 오늘의 홈트 (유튜브 알림 루틴 앱)
 
+#### Google Play : https://play.google.com/store/apps/details?id=com.lbk6661.youtube_routine_front&hl=ko
+
 ## 프로젝트 개요
 - 사용자가 등록한 시간에 맞춰 푸시 알림을 전송하고, 알림 클릭 시 저장된 유튜브 링크를 자동으로 실행하는 Android 앱
 - 반복적인 운동 루틴, 명상 등 습관 형성을 위한 영상 시청을 도와주는 동기부여 목적의 앱
