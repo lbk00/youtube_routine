@@ -23,7 +23,7 @@
 
 ```java
 // 모든 조건 통과
-System.out.println("FCM 전송 시작");
+log.info("FCM 전송 시작");
 // FCM 푸시 알림 전송
 sendPushNotification(fcmToken, routine);
 ```
@@ -33,17 +33,17 @@ sendPushNotification(fcmToken, routine);
 
 ```java
           	// 모든 조건 통과
-            System.out.println("FCM 전송 시작");
+            log.info("FCM 전송 시작");
 
             // FCM 전송 시도 및 실패 감지시 사용자 삭제
             try {
                 sendPushNotification(fcmToken, routine);
             } catch (FirebaseMessagingException e) {
-                System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + ", 이유: " + e.getMessage());
+                log.error("[FCM 전송 실패] 루틴 ID: {}, 이유: {}", routine.getId(), e.getMessage(), e);
 
                 if (e.getMessagingErrorCode() == MessagingErrorCode.UNREGISTERED) {
                     userRepository.deleteByFcmToken(fcmToken); // 사용자 삭제
-                    System.out.println("FCM 토큰 무효 → 사용자 삭제 완료");
+                    log.info("FCM 토큰 무효 → 사용자 삭제 완료");
                 }
 
                 continue;
@@ -92,7 +92,7 @@ public class UserScheduler {
 
             if (isInactive) {
                 userRepository.delete(user);
-                System.out.println("30일 이상 활동 없는 사용자 삭제: " + user.getFcmToken());
+                log.info("30일 이상 활동 없는 사용자 삭제: {}", user.getFcmToken());
             }
         }
     }
@@ -137,14 +137,14 @@ public class UserScheduler {
             try {
                 sendPushNotification(fcmToken, routine);
             } catch (FirebaseMessagingException e) {
-                System.err.println("[FCM 전송 실패] 루틴 ID: " + routine.getId() + ", 이유: " + e.getMessage());
+                log.error("[FCM 전송 실패] 루틴 ID: {}, 이유: {}", routine.getId(), e.getMessage(), e);
 
                 if (e.getMessagingErrorCode() == MessagingErrorCode.UNREGISTERED) {
                     User user = routine.getUser();
 
                     user.setActive(false); // 비활성화 마킹
                     userRepository.save(user);
-                    System.out.println("FCM 토큰 무효 → 사용자 isActive=false 처리 완료");
+                    log.info("FCM 토큰 무효 → 사용자 isActive=false 처리 완료");
                 }
 
                 continue;
@@ -173,7 +173,7 @@ public class UserScheduler {
 
             if (isInactive && isOver30Days) {
                 userRepository.delete(user);
-                System.out.println("30일 이상 비활성 사용자 삭제됨 → FCM: " + user.getFcmToken());
+                log.info("30일 이상 활동 없는 사용자 삭제: {}", user.getFcmToken());
             }
         }
     }
