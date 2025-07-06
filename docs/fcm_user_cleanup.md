@@ -114,6 +114,7 @@ public class UserScheduler {
 **→ 드물게 발생할수 있는 케이스지만 운영 안정성과 데이터 보호를 모두 고려하려면…**
 
 - User 엔티티에 isActive 필드 추가 ,  FCM 토큰 유효성 실패시 isActive 필드 false
+- 동시에 lastActiveAt 필드를 추가하여, 루틴 생성·수정·삭제 등 활동이 있을 때마다 갱신
 - 루틴 crud 동작하면 isActive 필드 true로,
 - UserScheduler 로 한달 이상 LastActiveAt 이 30일 이상 차이나고, isActive가 false인 사용자 삭제
 
